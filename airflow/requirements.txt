@@ -1,0 +1,6 @@
+apache-airflow-providers-google
+pyarrow
+unzip
+json
+requests
+csv
