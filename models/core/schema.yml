@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: merged_triple
+    description: >
+      Querying information regarding bike traffic (merged both ways), car traffic, all vehicle traffic (merged on voie)
+      This is done in rue de Rivoli which is the only street where all the 3 capturing measurements are somehow close to each others
+      All traffic is further divived by type of vehicle which needs to be individually selected for dashboard analysis

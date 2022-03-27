@@ -1,0 +1,22 @@
+
+version: 2
+
+sources:
+    - name: staging
+      #For bigquery:
+      database: dtc-proj
+      schema: traffic_all
+
+      tables:
+        - name: current_table
+        - name: traffic_allvehicle_table
+        - name: traffic_bike_table   
+
+    - name: distance_calculated
+      schema: dbt_glebras
+
+      tables:
+        - name: close_all-traffic_bike
+        - name: close_all-traffic_car
+        - name: close_bike_car   
+        - name: close_triple                       
