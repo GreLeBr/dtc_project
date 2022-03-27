@@ -32,7 +32,7 @@ AND distance < 50
 ORDER BY nom_compteur
 
 -- dbt build --m <model.sql> --var 'is_test_run: false'
-{% if var('is_test_run', default=true) %}
+{% if var('is_test_run', default=false) %}
 
   limit 100
 

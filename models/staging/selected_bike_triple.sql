@@ -9,7 +9,7 @@ JOIN close c
 ON b.nom_compteur = c.nom_compteur
 
 -- dbt build --m <model.sql> --var 'is_test_run: false'
-{% if var('is_test_run', default=true) %}
+{% if var('is_test_run', default=false) %}
 
   limit 100
 

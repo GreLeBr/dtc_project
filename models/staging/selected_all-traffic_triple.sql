@@ -9,7 +9,7 @@ JOIN  close c
 ON  a.label = c.label
 
 -- dbt build --m <model.sql> --var 'is_test_run: false'
-{% if var('is_test_run', default=true) %}
+{% if var('is_test_run', default=false) %}
 
   limit 100
 
