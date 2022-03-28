@@ -1,7 +1,7 @@
 {{ config(materialized='view')}}
 
 
-with close AS (SELECT DISTINCT nom_compteur FROM {{ source('distance_calculated','close_triple') }} limit 2) 
+with close AS (SELECT DISTINCT nom_compteur FROM {{ source('distance_calculated','close_bike_car') }} ) 
 
 SELECT RTRIM(nom_compteur, ARRAY_REVERSE(SPLIT(nom_compteur, ' '))[SAFE_OFFSET(0)]) as nom_compteur, date, sum(sum_counts) as sum_counts
 FROM (

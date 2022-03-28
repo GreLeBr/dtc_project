@@ -1,7 +1,7 @@
 {{ config(materialized='view')}}
 
 
-with close AS (SELECT DISTINCT iu_ac, libelle FROM {{ source('distance_calculated','close_triple') }} limit 1)
+with close AS (SELECT DISTINCT iu_ac, libelle FROM {{ source('distance_calculated','close_all-traffic_car') }} )
 
 
 SELECT c.iu_ac, c.libelle,t_1h, q, k, etat_trafic, c.geo_point_2d

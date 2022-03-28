@@ -1,6 +1,6 @@
 {{ config(materialized='view')}}
 
-with close AS (SELECT DISTINCT label FROM {{ source('distance_calculated','close_triple') }} limit 1 )
+with close AS (SELECT DISTINCT label FROM {{ source('distance_calculated','close_all-traffic_car') }} )
 
 
 SELECT t, a.label, mode, nb_usagers, voie
