@@ -20,4 +20,11 @@ sources:
         - name: close_all-traffic_car
         - name: close_bike_car   
         - name: close_triple     
-                          
+
+models:
+    - name : close_triple
+      description: >
+       Parisian mobility data regrouping measurements made for bikes, car traffic and combined traffic.
+       The data comes from 3 different sources, each using their own set of geographically located sensors. 
+       List of sensors from the 3 measurements data which are close to each others.
+

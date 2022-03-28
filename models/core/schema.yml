@@ -6,3 +6,13 @@ models:
       Querying information regarding bike traffic (merged both ways), car traffic, all vehicle traffic (merged on voie)
       This is done in rue de Rivoli which is the only street where all the 3 capturing measurements are somehow close to each others
       All traffic is further divived by type of vehicle which needs to be individually selected for dashboard analysis
+
+  - name: merged_bike_car
+    description: >
+      Querying information regarding bike traffic (merged both ways) and car traffic
+      This is done over any points in the Paris data where both sensors are less than 50m apart     
+
+  - name: merged_all-traffic_car
+    description: >
+      Querying information regarding all-traffic sensors (merged on ways) and car traffic
+      This is done over any points in the Paris data where both sensors are less than 50m apart     
