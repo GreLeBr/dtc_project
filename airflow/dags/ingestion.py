@@ -32,18 +32,14 @@ all_vehicle_url="https://parisdata.opendatasoft.com/explore/dataset/comptage-mul
 bike_url="https://parisdata.opendatasoft.com/explore/dataset/comptage-velo-donnees-compteurs/download/?format=csv&timezone=Europe/Paris&lang=fr&use_labels_for_header=true&csv_separator=%3B"
 
 
-current_file="https://parisdata.opendatasoft.com/explore/dataset/comptages-routiers-permanents/download/?format=csv&disjunctive.libelle=true&disjunctive.etat_trafic=true&disjunctive.libelle_nd_amont=true&disjunctive.libelle_nd_aval=true&refine.t_1h=2022&timezone=Europe/Paris&lang=fr&use_labels_for_header=true&csv_separator=%3B"
-
-# https://parisdata.opendatasoft.com/explore/dataset/comptages-routiers-permanents/download/?format=csv&disjunctive.libelle=true&disjunctive.etat_trafic=true&disjunctive.libelle_nd_amont=true&disjunctive.libelle_nd_aval=true&refine.t_1h=2022&timezone=Europe/Paris&lang=fr&use_labels_for_header=true&csv_separator=%3B
-
 curr_file="https://parisdata.opendatasoft.com/explore/dataset/comptages-routiers-permanents/download/?format=csv&timezone=Europe/Paris&lang=fr&use_labels_for_header=true&csv_separator=%3B"
 
-api_url="https://parisdata.opendatasoft.com/explore/dataset/comptages-routiers-permanents/download/?format=csv&disjunctive.libelle=true&disjunctive.etat_trafic=true&disjunctive.libelle_nd_amont=true&disjunctive.libelle_nd_aval=true&refine.t_1h="+'{{ execution_date.strftime(\'%Y-%m\') }}'+ "&timezone=Europe/Paris&lang=fr&use_labels_for_header=true&csv_separator=%3B"
 
-api_v2="https://parisdata.opendatasoft.com/api/v2/catalog/datasets/comptages-routiers-permanents/exports/csv?where=t_1h%20%3E%20date%272022%27%20&limit=-1&offset=0&timezone=UTC"
+current_api="https://opendata.paris.fr/api/v2/catalog/datasets/comptages-routiers-permanents/exports/csv?where=t_1h+%3E%3D+" +'{{ execution_date.strftime(\'%Y-%m\') }}'+ "&timezone=Europe/Paris&limit=-1"
 
-test_url="https://parisdata.opendatasoft.com/explore/dataset/comptage-multimodal-sites-et-trajectoires-de-comptage/download/?format=csv&timezone=Europe/Berlin&lang=fr&use_labels_for_header=true&csv_separator=%3B"
+bike_api="https://opendata.paris.fr/api/v2/catalog/datasets/comptage-velo-donnees-compteurs/exports/csv?where=t+%3E%3D+"+'{{ execution_date.strftime(\'%Y-%m\') }}'+ "&timezone=Europe/Paris&limit=-1"
 
+alltraffic_api="https://opendata.paris.fr/api/v2/catalog/datasets/comptage-velo-donnees-compteurs/exports/csv?where=t+%3E%3D+"+'{{ execution_date.strftime(\'%Y-%m\') }}'+"&timezone=Europe/Paris&limit=-1"
 
 download_folder=AIRFLOW_HOME+'/data/'
 year = '{{ execution_date.strftime(\'%Y\') }}'
@@ -108,6 +104,8 @@ def format_to_parquet(src_dir, info):
         pq.write_table(table, src_dir+dest_file+".parquet")
 
 def format_to_parquet_current(src_dir, info):
+
+    # I have a bug here I could not fix, the ingestion works if I run these lines in a notebook but with the DAG, it transforms the timestamp data as object
    
     table = pv.read_csv(src_dir+info+".csv", parse_options=pv.ParseOptions(delimiter=";"))
     pq.write_table(table, src_dir+info+".parquet")    
@@ -222,13 +220,13 @@ def donwload_parquetize_upload_current_dag(
                 "info":info  
             },
         )
-        # rm_task = BashOperator(
-        #     task_id="rm_task_current",
-        #     bash_command=f"find {download_folder} -name '*.csv' -type f -delete"
-        # )
+        rm_task = BashOperator(
+            task_id="rm_task_current",
+            bash_command=f"find {download_folder} -name '*.csv' -type f -delete"
+        )
 
-        # download_dataset_task >> format_to_parquet_task >> local_to_gcs_task >> rm_task
-        download_dataset_task >> format_to_parquet_task >> local_to_gcs_task 
+        download_dataset_task >> format_to_parquet_task >> local_to_gcs_task >> rm_task
+        # download_dataset_task >> format_to_parquet_task >> local_to_gcs_task 
 
 
 archives_dag = DAG(
@@ -292,7 +290,7 @@ donwload_parquetize_upload_current_dag(
 
 
 
-api= DAG(
+api_current= DAG(
     dag_id="api",
     schedule_interval="@monthly",
     start_date=days_ago(31),
@@ -303,8 +301,8 @@ api= DAG(
 ) 
 
 donwload_parquetize_upload_current_dag(
-    dag=api,
-    url_template=api_url,
+    dag=api_current,
+    url_template=current_api,
     download_folder=download_folder,  
     info=year_month,
     gcs_path_template="current/{{ execution_date.strftime(\'%Y-%m\') }}/"
@@ -328,6 +326,26 @@ donwload_parquetize_upload_current_dag(
     gcs_path_template="bike/"
 )
 
+bike_api= DAG(
+    dag_id="bike",
+    schedule_interval="@monthly",
+    start_date=days_ago(31),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=1,
+    tags=['dtc-greg-proj'],
+)
+
+donwload_parquetize_upload_current_dag(
+    dag=bike_api,
+    url_template=bike_api,
+    download_folder=download_folder,
+    info="bike",
+    gcs_path_template="bike/"
+)
+
+
+
 all_vehicle= DAG(
     dag_id="all_vehicle",
     schedule_interval="@once",
@@ -346,6 +364,23 @@ donwload_parquetize_upload_current_dag(
     gcs_path_template="all_vehicle/"
 )
 
+all_vehicle_api= DAG(
+    dag_id="all_vehicle",
+    schedule_interval="@monthly",
+    start_date=days_ago(31),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=1,
+    tags=['dtc-greg-proj'],
+)
+
+donwload_parquetize_upload_current_dag(
+    dag=all_vehicle_api,
+    url_template=alltraffic_api,
+    download_folder=download_folder,
+    info="all_vehicle",
+    gcs_path_template="all_vehicle/"
+)
 
 
 
