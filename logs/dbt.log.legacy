@@ -14338,3 +14338,50 @@ limit 500
 2022-03-28 08:17:08.732856 (Thread-411): handling status request
 2022-03-28 08:17:08.734704 (Thread-411): 08:17:08  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ff020e520>]}
 2022-03-28 08:17:08.735264 (Thread-411): sending response (<Response 2089 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 08:17:11.339948 (Thread-412): 08:17:11  Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+2022-03-28 08:17:11.340159 (Thread-412): 08:17:11  Partial parsing enabled, no changes found, skipping parsing
+2022-03-28 08:17:11.340844 (Thread-412): 08:17:11  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- seeds.dtc_proj.referentiel-comptages-routiers
+- seeds.dtc_proj.comptage-multimodal-sites-et-trajectoires-de-comptage
+
+2022-03-28 08:17:11.346376 (Thread-412): 08:17:11  Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fd0640ee0>]}
+2022-03-28 08:17:11.955227 (Thread-413): handling status request
+2022-03-28 08:17:11.955596 (Thread-413): 08:17:11  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fd06f1be0>]}
+2022-03-28 08:17:11.956098 (Thread-413): sending response (<Response 1773 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 08:17:12.013948 (Thread-414): handling status request
+2022-03-28 08:17:12.014252 (Thread-414): 08:17:12  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fd06cf3a0>]}
+2022-03-28 08:17:12.014728 (Thread-414): sending response (<Response 1773 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 09:22:27.389838 (Thread-415): 09:22:27  Partial parsing enabled: 0 files deleted, 0 files added, 1 files changed.
+2022-03-28 09:22:27.392227 (Thread-415): 09:22:27  Partial parsing: updated file: dtc_proj://models/core/merged_bike_car.sql
+2022-03-28 09:22:27.396469 (Thread-415): 09:22:27  1699: static parser successfully parsed core/merged_bike_car.sql
+2022-03-28 09:22:27.455181 (Thread-415): 09:22:27  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- seeds.dtc_proj.referentiel-comptages-routiers
+- seeds.dtc_proj.comptage-multimodal-sites-et-trajectoires-de-comptage
+
+2022-03-28 09:22:27.461479 (Thread-415): 09:22:27  Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fb078a280>]}
+2022-03-28 09:22:27.916482 (Thread-416): handling status request
+2022-03-28 09:22:27.916853 (Thread-416): 09:22:27  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ff02940a0>]}
+2022-03-28 09:22:27.917357 (Thread-416): sending response (<Response 2093 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 09:22:27.969499 (Thread-417): handling status request
+2022-03-28 09:22:27.969892 (Thread-417): 09:22:27  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ff02e0b20>]}
+2022-03-28 09:22:27.970367 (Thread-417): sending response (<Response 2093 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 09:22:41.967468 (Thread-418): 09:22:41  Partial parsing enabled: 0 files deleted, 0 files added, 1 files changed.
+2022-03-28 09:22:41.968000 (Thread-418): 09:22:41  Partial parsing: updated file: dtc_proj://models/core/merged_all-traffic_car.sql
+2022-03-28 09:22:41.972790 (Thread-418): 09:22:41  1699: static parser successfully parsed core/merged_all-traffic_car.sql
+2022-03-28 09:22:42.013772 (Thread-418): 09:22:42  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- seeds.dtc_proj.referentiel-comptages-routiers
+- seeds.dtc_proj.comptage-multimodal-sites-et-trajectoires-de-comptage
+
+2022-03-28 09:22:42.018639 (Thread-418): 09:22:42  Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fb06fdd00>]}
+2022-03-28 09:22:42.474076 (Thread-419): handling status request
+2022-03-28 09:22:42.474432 (Thread-419): 09:22:42  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fd05f53a0>]}
+2022-03-28 09:22:42.474921 (Thread-419): sending response (<Response 2107 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 09:22:42.562687 (Thread-420): handling status request
+2022-03-28 09:22:42.563039 (Thread-420): 09:22:42  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fd061de20>]}
+2022-03-28 09:22:42.563518 (Thread-420): sending response (<Response 2107 bytes [200 OK]>) to 10.0.4.179
+2022-03-28 09:23:23.012675 (Thread-421): handling status request
+2022-03-28 09:23:23.013049 (Thread-421): 09:23:23  Sending event: {'category': 'dbt', 'action': 'rpc_request', 'label': 'ff76d5c3-866a-4ea8-ac05-4e8649ea166b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3fd061db20>]}
+2022-03-28 09:23:23.013545 (Thread-421): sending response (<Response 2107 bytes [200 OK]>) to 10.0.4.179
