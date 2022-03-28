@@ -1,5 +1,14 @@
-DTC project Grégoire
+# DTC Data engineering project Grégoire
 
+This repo is project as part of the Data Talks Club data engineering course available here:
+https://github.com/DataTalksClub/data-engineering-zoomcamp
+
+## Table of Contents
+* [1. About the project](#about-project)
+* [2. Instructions](#instructions)
+
+<a id='about-project'></a>
+## 1. About the Project
 
 The goal of this project was to gather public data publish on the Paris public data portal at :
 https://parisdata.opendatasoft.com/pages/home/  
@@ -7,13 +16,14 @@ https://parisdata.opendatasoft.com/pages/home/
 and attempt to crossrefer them for a better understanding of the mobility foodprint at a given time and place.   
 
 I am using 3 data sources: 
-    * One is measurement of car traffic, tracking cars per hour and road occupation
+
+    - One is measurement of car traffic, tracking cars per hour and road occupation
     https://parisdata.opendatasoft.com/explore/dataset/comptages-routiers-permanents/information/?disjunctive.libelle&disjunctive.etat_trafic&disjunctive.libelle_nd_amont&disjunctive.libelle_nd_aval
 
-    * One is bike counting data
+    - One is bike counting data
     https://parisdata.opendatasoft.com/explore/dataset/comptage-velo-donnees-compteurs/information/?disjunctive.id_compteur&disjunctive.nom_compteur&disjunctive.id&disjunctive.name 
 
-    * The last one is a multi-modal counting of the traffic using image recognition
+    - The last one is a multi-modal counting of the traffic using image recognition
     https://parisdata.opendatasoft.com/explore/dataset/comptage-multimodal-comptages/information/?disjunctive.label&disjunctive.mode&disjunctive.voie&disjunctive.sens&disjunctive.trajectoire 
 
 
@@ -46,3 +56,80 @@ The other dashboard presents relationships between bike and car sensors data.
 Dashboards at: 
 https://datastudio.google.com/reporting/b53d8cc4-588a-4388-9533-1aad366e1806
 https://datastudio.google.com/reporting/0fd9aea9-14ac-4cb0-b35e-14e6b0c89114
+
+
+<a id='instructions'></a>
+## 2. Instructions
+
+Fetching data is done using a docker container running either locally or from a virtual machine. 
+
+To install a virtual machine, you can follow instructions from Alexey Grigorev
+https://www.youtube.com/watch?v=ae-CV2KfoN0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=12 
+Here are my personal notes that summarized the steps
+https://trapezoidal-pin-b9e.notion.site/Installing-a-virtual-machine-on-google-3731661c395041babbe4dc4fde369e29
+
+
+I have used google cloud for my project. https://console.cloud.google.com/
+
+First set up a new account if you don't have one. 
+
+Then set up a project and follow instructions to set up roles. 
+
+https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_1_basics_n_setup/1_terraform_gcp/2_gcp_overview.md#initial-setup
+
+
+For convenience purpose, the google credentials are moved to directory ~/.google/credentials/google-credentials.json
+
+
+To set up the project I used terraform with the appropriate variable related to the project ID. 
+
+Instructions are available here
+
+https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp/terraform
+
+
+Once your virtual machine/environment is setup:
+
+Start by building the docker image:
+
+```
+docker-compose build
+```
+Initialize 
+```
+docker-compose up airflow-init
+```
+
+Run the image
+```
+docker-compose up
+```
+
+More informations available here
+https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_2_data_ingestion/airflow
+
+
+Once all the services are started, connect to airflow using http://localhost:8080/ 
+
+Run the dags that need to be ran once, starting with the ingestion scripts
+
+Then run the transfer from google cloud to biquery. 
+
+
+The second part is done using DBT cloud
+https://www.getdbt.com/  
+
+You can setup a free account for single developper. 
+
+Best is to follow the video serie to understand the process
+
+I set up a single job, running
+
+```
+dbt run --var 'is_test_run: false'
+```
+
+I am planning to add tests potentially later and improve documentation on dbt. 
+
+The job is run monthly to match the monthly feed of DAGS on new data. 
+
