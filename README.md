@@ -4,8 +4,8 @@ This repo is project as part of the Data Talks Club data engineering course avai
 https://github.com/DataTalksClub/data-engineering-zoomcamp
 
 
-![Alt text](assets/01.jpg?raw=true "Dashboard 1")
-![Alt text](assets/02.jpg?raw=true "Dashboard 2")
+![Alt text](assets/01.jpg?raw=true =250x250 "Dashboard 1")
+![Alt text](assets/02.jpg?raw=true =250x250 "Dashboard 2")
 
 ## Table of Contents
 * [1. About the project](#about-project)
